@@ -16,6 +16,5 @@ Sofia Martinez, College of Southern Nevada
 
 ## Run in Cloud Environments
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)]
-(https://github.com/codespaces/new?repo=Lowellcross/Encoder-Decoder2)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=Lowellcross/Encoder-Decoder2)
 
