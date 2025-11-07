@@ -20,7 +20,7 @@ To access all of the files  go  to  the link [https://github.com/Lowellcross/Enc
 ]
 and click it, and this will take you to all of the files.
 
-The file MAIN.PY is the  only file that you need to download to run the program in a Pycharm IDE. I tested  this program in Jupyter  Notebook and it appears to run there without problems.
+The file MAIN.PY is the  only file that you need to download to run the program in a Pycharm IDE. I used Pycharm as my  IDE for this project. I tested  this program in Jupyter  Notebook, as well,  and it appears to run there without problems.
 
 For  my future plans for this site I am including information for creating the Codespace which is still under development.
 
