@@ -14,6 +14,7 @@ Zuzuki Carlson, M.A., College of Southern Nevada
 Sofia Martinez, College of Southern Nevada
 
 This is the link to my  site. It  takes  you to  the README page that includes  all of the  details the  project.
+https://lowellcross.github.io/Encoder-Decoder/
 
 To access all of the files  go  to  the link [https://github.com/Lowellcross/Encoder-Decoder
 ]
