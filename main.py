@@ -1,6 +1,9 @@
-import random                     # For choosing random AI assistant hints
-import tkinter as tk              # Main Tkinter GUI module
-from tkinter import messagebox, ttk  # Message dialogs + themed widgets (Combobox)
+#	Imports Python’s random module (used later to choose a tip for the simulated AI assistant
+#	Imports Tkinter GUI toolkit and aliases it tk for shorter references
+#	Imports messagebox (dialogs like showerror) and ttk (themed widgets such as Combobox) from Tkinter
+import random
+import tkinter as tk
+from tkinter import messagebox, ttk
 
 """
 AI Encoder–Decoder GUI
@@ -10,11 +13,20 @@ Preserves original behavior (Shift cipher + Morse encode/decode)
 and the simple simulated AI assistant.
 """
 
-# --- Morse Code Dictionary ---
+#MORSE_CODE_DICT = { 'A': '.-', ... ' ': '/', }
+#	A dictionary mapping characters (A–Z, 0–9, punctuation and space) to their Morse-code string
+#  equivalents. Space is mapped to '/' (used later to separate words).
+#	This is the core lookup for encoding text to Morse.
+#  MORSE_TO_TEXT = {v: k for k, v in MORSE_CODE_DICT.items()}
+#  Builds the reverse mapping (Morse pattern → character) via dictionary comprehension. Used for decoding Morse back to text
+
+
+#  Morse Code Dictionary
+
 MORSE_CODE_DICT = {
-    'A': '.-',                    # Morse for letter A
-    'B': '-...',                  # Morse for B
-    'C': '-.-.',                  # etc...
+    'A': '.-',
+    'B': '-...',
+    'C': '-.-.',
     'D': '-..',
     'E': '.',
     'F': '..-.',
@@ -38,7 +50,7 @@ MORSE_CODE_DICT = {
     'X': '-..-',
     'Y': '-.--',
     'Z': '--..',
-    '1': '.----',                 # Numbers
+    '1': '.----',
     '2': '..---',
     '3': '...--',
     '4': '....-',
@@ -48,24 +60,24 @@ MORSE_CODE_DICT = {
     '8': '---..',
     '9': '----.',
     '0': '-----',
-    ',': '--..--',                # Punctuation
+    ',': '--..--',
     '.': '.-.-.-',
     '?': '..--..',
     '/': '-..-.',
     '-': '-....-',
     '(': '-.--.',
     ')': '-.--.-',
-    ' ': '/',                     # Space represented as '/'
+    ' ': '/',
 }
 
-# Reverse mapping: morse → character
 MORSE_TO_TEXT = {v: k for k, v in MORSE_CODE_DICT.items()}
 
+
 # --- Encoding/Decoding Functions ---
+#	Defines a function that applies a simple shift cipher (but note: it shifts Unicode codepoints, not alphabet positions)
 
 def encode_shift(message, key):
     """Encode a message by shifting character codepoints by key."""
-    # Convert each character to its Unicode number, add key, join with spaces
     return ' '.join(str(ord(c) + key) for c in message)
 
 
@@ -75,203 +87,198 @@ def decode_shift(encoded_text, key):
 
     Returns an empty string and shows a messagebox on invalid input.
     """
+#•	Starts try/except to catch non-integer tokens in the input
     try:
-        # Split text into numbers and convert each to int
         numbers = list(map(int, encoded_text.split()))
-        # Convert each shifted number back to a character
         return ''.join(chr(num - key) for num in numbers)
+
+#	If conversion fails, shows an error dialog (messagebox.showerror) and returns empty string. This informs the user and prevents crashes.
+
     except ValueError:
-        # If conversion fails, show error popup
         messagebox.showerror(
             "Error", "Invalid numeric input for shift decoding."
         )
-        return ""  # Return empty string so program doesn't crash
+        return ""
 
 
 def encode_morse(message):
     """Encode text to Morse code (unknown chars become '?')."""
-    message = message.upper()  # Morse dictionary is uppercase
-    # For each character, get Morse pattern or '?' if unknown
+#•	Uppercases input so lookup is simpler (MORSE_CODE_DICT keys are uppercase letters)
+    message = message.upper()
     return ' '.join(MORSE_CODE_DICT.get(char, '?') for char in message)
 
 
 def decode_morse(encoded_text):
     """Decode Morse code (words separated with ' /')."""
-    words = encoded_text.split(' / ')  # Split Morse words by slash
-    decoded_words = []                 # Collect output words
-
+    words = encoded_text.split(' / ')
+    decoded_words = []
     for word in words:
-        letters = word.split()         # Split Morse letters
-        # Convert each Morse pattern back to a character
+        letters = word.split()
         decoded = ''.join(MORSE_TO_TEXT.get(letter, '?') for letter in letters)
-        decoded_words.append(decoded)  # Append decoded word
-
-    return ' '.join(decoded_words)     # Return decoded full sentence
+        decoded_words.append(decoded)
+    return ' '.join(decoded_words)
 
 
 # --- AI Text Assistant (Simulated) ---
+#	Simulated assistant that offers hints based on the text content. Not a real ML model — deterministic checks + random tips
 
 def ai_assistant_response(text):
     """Simulate AI suggestions or insights based on the text."""
-    if not text.strip():               # No text entered?
+    if not text.strip():
         return "🤖 Please enter some text first!"
 
-    if text.isupper():                 # All uppercase?
+    if text.isupper():
         return "🤖 Tip: Your text is in uppercase — ideal for Morse encoding!"
-    if text.islower():                 # All lowercase?
+    if text.islower():
         return (
             "🤖 Your text is lowercase — you might want to convert to "
             "uppercase for Morse."
         )
-    if text.isdigit():                 # Only digits?
+    if text.isdigit():
         return "🤖 That looks like numeric data — use Shift Cipher for best results."
-    if any(char in text for char in ['.', '?', '!']):  # Contains punctuation?
+    if any(char in text for char in ['.', '?', '!']):
         return "🤖 This seems like a sentence — consider encoding it in Morse for readability."
 
-    # Random fallback hints
     hints = [
         "🤖 Try a higher key for more secure encoding!",
         "🤖 Did you know you can mix Morse and Shift Cipher for fun?",
         "🤖 Keep your message short and simple for clean Morse output.",
         "🤖 Add a numeric key to strengthen your cipher encoding.",
     ]
-    return random.choice(hints)        # Choose one at random
+    return random.choice(hints)
 
 
 # --- GUI Functions ---
 
+
 def encode_message():
     """Handler for the Encode button."""
-    message = input_text.get("1.0", tk.END).strip()  # Read text box input
-    mode = mode_var.get()                            # Read mode selected
+#	Reads the full contents from input_text Tkinter Text widget (from line 1.0 to END) and strips
+# surrounding whitespace/newlines. This is the text to encode
+    message = input_text.get("1.0", tk.END).strip()
+    mode = mode_var.get()
 
-    if mode == "Shift Cipher":                       # If Shift mode
-        key = key_entry.get()                        # Read key entry
-        if not key.isdigit():                        # Validate key
+    if mode == "Shift Cipher":
+        key = key_entry.get()
+        if not key.isdigit():
             messagebox.showerror("Error", "Key must be an integer!")
             return
         key_int = int(key)
-        result = encode_shift(message, key_int)      # Encode shift cipher
+        result = encode_shift(message, key_int)
 
-    elif mode == "Morse Code":                       # If Morse mode
-        result = encode_morse(message)               # Encode Morse
+    elif mode == "Morse Code":
+        result = encode_morse(message)
 
     else:
         messagebox.showerror("Error", "Unknown encoding mode.")
         return
 
-    # Update output box
     output_text.delete("1.0", tk.END)
     output_text.insert(tk.END, result)
 
-    # Update AI assistant
+#	Update the AI assistant label (StringVar) with response based on the original message
     ai_text.set(ai_assistant_response(message))
 
 
 def decode_message():
     """Handler for the Decode button."""
-    message = input_text.get("1.0", tk.END).strip()  # Read input
-    mode = mode_var.get()                            # Mode selected
+    message = input_text.get("1.0", tk.END).strip()
+    mode = mode_var.get()
 
-    if mode == "Shift Cipher":                       # Shift decode
+    if mode == "Shift Cipher":
         key = key_entry.get()
-        if not key.isdigit():                        # Validate key
+        if not key.isdigit():
             messagebox.showerror("Error", "Key must be an integer!")
             return
         key_int = int(key)
-        result = decode_shift(message, key_int)      # Decode shift
+        result = decode_shift(message, key_int)
 
-    elif mode == "Morse Code":                       # Morse decode
+    elif mode == "Morse Code":
         result = decode_morse(message)
 
     else:
         messagebox.showerror("Error", "Unknown decoding mode.")
         return
 
-    # Show output text
     output_text.delete("1.0", tk.END)
     output_text.insert(tk.END, result)
-
-    # AI assistant analyzes decoded text
     ai_text.set(ai_assistant_response(result))
 
 
 def clear_all():
     """Clear input, output, key, and reset AI assistant text."""
-    input_text.delete("1.0", tk.END)                 # Clear input
-    output_text.delete("1.0", tk.END)                # Clear output
-    key_entry.delete(0, tk.END)                      # Clear key field
-    ai_text.set("🤖 AI Assistant ready to help!")    # Reset AI text
+    input_text.delete("1.0", tk.END)
+    output_text.delete("1.0", tk.END)
+    key_entry.delete(0, tk.END)
+    ai_text.set("🤖 AI Assistant ready to help!")
 
 
 # --- GUI Layout ---
+root = tk.Tk()
+root.title("AI Encoder–Decoder with Morse Code")
+root.geometry("800x800")
+root.config(bg="silver")
 
-root = tk.Tk()                                       # Create main window
-root.title("AI Encoder–Decoder with Morse Code")     # Window title
-root.geometry("700x600")                             # Default size
-root.config(bg="#e6f0ff")                            # Background color
-
-# Title label
+# Title
+# Creates a big title label "AI Encoder–Decoder" with font and background and packs it with vertical padding
 tk.Label(
     root,
     text="AI Encoder–Decoder",
-    font=("Arial", 20, "bold"),
+    font=("San Serif", 24, "bold"),
     bg="#e6f0ff",
 ).pack(pady=10)
 
-# Mode selection section
+# Mode selection
 mode_frame = tk.Frame(root, bg="#e6f0ff")
 mode_frame.pack(pady=5)
-
 tk.Label(
-    mode_frame, text="Select Mode:", bg="#e6f0ff", font=("Arial", 12)
+    mode_frame, text="Select Mode:", bg="#e6f0ff", font=("San Serif", 18)
 ).pack(side=tk.LEFT, padx=5)
 
-mode_var = tk.StringVar(value="Shift Cipher")         # Default option
+mode_var = tk.StringVar(value="Shift Cipher")
 mode_menu = ttk.Combobox(
     mode_frame,
     textvariable=mode_var,
     values=["Shift Cipher", "Morse Code"],
     width=20,
-    state="readonly",                                 # User cannot type custom text
+    state="readonly",
 )
 mode_menu.pack(side=tk.LEFT)
 
-# Key entry area (for Shift cipher only)
+# Key input (for shift cipher)
 key_frame = tk.Frame(root, bg="#e6f0ff")
 key_frame.pack(pady=5)
-
 tk.Label(
     key_frame,
     text="Enter Key (number):",
     bg="#e6f0ff",
-    font=("Arial", 12),
+    font=("San Serif", 18),
 ).pack(side=tk.LEFT, padx=5)
 
-key_entry = tk.Entry(key_frame, width=10, font=("Arial", 12))
+key_entry = tk.Entry(key_frame, width=10, font=("San Serif", 18))
 key_entry.pack(side=tk.LEFT)
 
-# Input message label + text box
+# Input text
 tk.Label(
     root,
     text="Input Message:",
     bg="#e6f0ff",
-    font=("Arial", 12, "bold"),
+    font=("San Serif", 18, "bold"),
 ).pack(pady=5)
 
-input_text = tk.Text(root, height=5, width=70, font=("Arial", 12))
+input_text = tk.Text(root, height=5, width=70, font=("San Serif", 18))
 input_text.pack()
 
-# Buttons (Encode / Decode / Clear)
-button_frame = tk.Frame(root, bg="#e6f0ff")
+# Buttons
+button_frame = tk.Frame(root, bg="royalblue")
 button_frame.pack(pady=10)
 
 tk.Button(
     button_frame,
     text="Encode",
-    command=encode_message,      # Connect button to function
+    command=encode_message,
     width=12,
-    bg="#cce5ff",
+    bg="white",
 ).pack(side=tk.LEFT, padx=10)
 
 tk.Button(
@@ -279,7 +286,7 @@ tk.Button(
     text="Decode",
     command=decode_message,
     width=12,
-    bg="#cce5ff",
+    bg="white",
 ).pack(side=tk.LEFT, padx=10)
 
 tk.Button(
@@ -287,38 +294,37 @@ tk.Button(
     text="Clear",
     command=clear_all,
     width=12,
-    bg="#ffcccc",
+    bg="white",
 ).pack(side=tk.LEFT, padx=10)
 
-# Output section
+# Output text
 tk.Label(
     root,
     text="Output Message:",
     bg="#e6f0ff",
-    font=("Arial", 12, "bold"),
+    font=("San Serif", 18, "bold"),
 ).pack(pady=5)
 
-output_text = tk.Text(root, height=5, width=70, font=("Arial", 12))
+output_text = tk.Text(root, height=5, width=70, font=("San Serif", 18))
 output_text.pack()
 
-# AI assistant message label
+# AI Assistant area
 tk.Label(
     root,
     text="AI Assistant:",
     bg="#e6f0ff",
-    font=("Arial", 12, "bold"),
+    font=("San Serif", 14, "bold"),
 ).pack(pady=5)
 
-ai_text = tk.StringVar(value="🤖 AI Assistant ready to help!")  # Holds AI message
-
+ai_text = tk.StringVar(value="🤖 AI Assistant ready to help!")
 ai_label = tk.Label(
     root,
-    textvariable=ai_text,        # Bind label to string variable
-    wraplength=600,              # Wrap long tips to new lines
+    textvariable=ai_text,
+    wraplength=600,
     justify="left",
-    bg="#f0f8ff",
-    font=("Arial", 11),
+    bg="royalblue",
+    font=("San Serif", 18),
 )
 ai_label.pack(padx=10, pady=5, fill="x")
 
-root.mainloop()                  # Start GUI event loop
+root.mainloop()
