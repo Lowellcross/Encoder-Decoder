@@ -22,11 +22,7 @@ and click it, and this will take you to all of the files.
 
 The file MAIN.PY is the  only file that you need to download to run the program in a Pycharm IDE. I used Pycharm as my  IDE for this project. I tested  this program in Jupyter  Notebook, as well,  and it appears to run there without problems.
 
-For  my future plans for this site I am including information for creating the Codespace which is still under development.
-
-Then under “Create a new codespace” select  the drop down button that says “Select a Repository”
-
-Choose “LowellCross/Encoder-Decoder
+For  my future plans for this site I am including information on this  README  for creating the Codespace which is still under development and  out of the  scope of  this project  and  which   I plan to display    on my  LinkedIn page  when  it is done.  A  new  codespace”  is  being  created for  that. 
 
 
 
