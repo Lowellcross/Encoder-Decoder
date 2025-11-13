@@ -25,7 +25,11 @@ For  my future plans for this site I am including information on this  README  f
 Examples
 This is the screen that appears when you run it.  I used large font sizes  in it to make  it easy to read and I used color choices that suited me. 
 
-![Uploading image.png…]()
+<img width="581" height="726" alt="image" src="https://github.com/user-attachments/assets/14f72b54-4a13-4c23-b220-91410731114c" />
+
+
+
+
  
 
 Prerequisites
