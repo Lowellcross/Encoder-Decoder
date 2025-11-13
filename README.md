@@ -1,6 +1,12 @@
-Readme
+README
+
 ENHANCED ENCODER-DECODER  PROGRAM
+
 https://lowellcross.github.io/Encoder-Decoder/
+
+
+<img width="469" height="469" alt="image" src="https://github.com/user-attachments/assets/fbbfeb72-b269-4579-a30a-891605f509b9" />
+
 
  
 Introduction
@@ -18,6 +24,7 @@ Development
 For  my future plans for this site I am including information on this  README  for creating the Codespace which is still under development and  out of the  scope of  this project  and  which   I plan to display    on my  LinkedIn page  when  it is done.  A  new  codespace”  is  being  created for  that.  At that  point  an Integrated Development Engine will not  be required to run the program, since it will have  its  own  virtual  environment.
 Examples
 This is the screen that appears when you run it.  I used large font sizes  in it to make  it easy to read and I used color choices that suited me. 
+
 ![Uploading image.png…]()
  
 
