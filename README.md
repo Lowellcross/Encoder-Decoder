@@ -8,27 +8,49 @@ ENHANCED ENCODER-DECODER  PROGRAM is a GUI utility that encodes alpha numeric ch
 
 Features
 •	Real-time monitoring from AI assistant to help you with  comments  on which code  to use for your project.
+
 •	Multiple output modes – Encoding can be done in a Shift cipher  code using   any  security  key of your  choice,  or encoded  into Morse. The  decoding process  is simply putting the  code into the input screen and clicking the decode button.
+
 Installation
+
 Manual Download:  To access all of the files  go  to  the link https://github.com/Lowellcross/Encoder-Decoder
+
 The file MAIN.PY is the  only file that you need to download to run the program in a Pycharm IDE.  I tested  this program in Jupyter  Notebook  as  well and it appears to run there without problems.
+
 Usage
-Electronic  communication is  very    important in  the world today, and it can be a necessary means of  communication between spouses, or friends. Electronic mail systems are susceptible to hacking and privacy  concerns. This program allows you to communicate across a compromised system and with  a pre-determined security key , and communicate with  someone privately.
+
+Electronic  communication is  very    important in  the world today, and it can be a necessary means of  communication between spouses, or friends. Electronic mail systems are susceptible to hacking and privacy  concerns.
+
+This program allows you to communicate across a compromised system and with  a pre-determined security key , and communicate with  someone privately.
+
 Development 
-For  my future plans for this site I am including information on this  README  for creating the Codespace which is still under development and  out of the  scope of  this project  and  which   I plan to display    on my  LinkedIn page  when  it is done.  A  new  codespace”  is  being  created for  that.  At that  point  an Integrated Development Engine will not  be required to run the program, since it will have  its  own  virtual  environment.
+For  my future plans for this site I am including information on this  README  for creating the Codespace which is still under development and  out of the  scope of  this project  and  which   I plan to display    on my 
+
+LinkedIn page  when  it is done.  A  new  codespace”  is  being  created for  that.  At that  point  an Integrated Development Engine will not  be required to run the program, since it will have  its  own  virtual
+
+environment.
+
 Examples
+
 This is the screen that appears when you run it.  I used large font sizes  in it to make  it easy to read and I used color choices that suited me. 
+<img width="767" height="958" alt="image" src="https://github.com/user-attachments/assets/14d02294-2ef3-4fa7-8785-61a6a069ed01" />
+
  
 
 Prerequisites
 This requires that a Key(number) be entered  to use. The number can be any  choice that  the user  wants to use as long as it is a whole number.
+
 Requires an Integrated Development Environment to run in.
+
 Mentions
 https://github.com/matiassingers/awesome-readme?tab=readme-ov-file
 https://github.com/amplication/amplication#readme
 https://github.com/owloops/updo#readme
+
 Contributing  and  Support
+
 Hadley Virgin, my Technical Support Coach: who has supported me through this whole journey and has put up with me graciously in times of frustration.
 The Technical support staff of NCLab who have been there to help me with coding issues.
+
 License
 This project is licensed under the GNU GENERAL PUBLIC LICENSE
