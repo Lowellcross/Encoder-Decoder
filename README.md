@@ -80,3 +80,19 @@ The Technical support staff of NCLab who have been there to help me with coding 
 LICENSE
 
 This project is licensed under the GNU GENERAL PUBLIC LICENSE
+
+{
+  "name": "[Default Codespace](https://obscure-goldfish-pj444x5ggqpc6vw5.github.dev/)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "postCreateCommand": "bash -lc \"[ -f package.json ] && npm install || true\"",
+  "forwardPorts": [3000],
+  "remoteUser": "vscode"
+}
